@@ -14,6 +14,7 @@ interface EditVideoModalProps {
 function EditVideoModal({ isOpen, onClose }: EditVideoModalProps) {
     const { publishAVideo, uploadLoading, error } = useVideos()
     const dispatch = useDispatch()
+    const [video, setVideo] = useState<File | null>(null)
     const [thumbnail, setThumbnail] = useState<File | null>(null)
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")

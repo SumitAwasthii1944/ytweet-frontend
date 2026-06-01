@@ -76,7 +76,7 @@ export const removeComment =createAsyncThunk(
           'comments/removeComment',
           async (commentId:string,{rejectWithValue}) => {
                     try {
-                              const res=await deleteComment(commentId);
+                              await deleteComment(commentId);
                               return commentId
                     } catch (error:any) {
                               return rejectWithValue(error.response?.data?.message || "failed to delete comment")

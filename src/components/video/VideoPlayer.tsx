@@ -1,6 +1,5 @@
 import '@videojs/react/video/skin.css';
 import { createPlayer, videoFeatures } from '@videojs/react';
-import { VideoSkin } from '@videojs/react/video';
 import { HlsVideo } from '@videojs/react/media/hls-video';
 
 const Player = createPlayer({ features: videoFeatures });

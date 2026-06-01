@@ -1,10 +1,9 @@
-import Glass from "../components/ui/Glass"
 import Avatar from "../components/ui/Avatar"
 import { useAuth } from "../hooks/useAuth"
 import bgNull from '../assets/bgNull.jpg'
 import { getUserChannelProfile } from "../api/user.api"
 import { useVideos } from "../hooks/useVideos"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { useParams,useNavigate } from "react-router-dom"
 import { useTweets } from "../hooks/useTweets"
 import type { ChannelProfile, Playlist } from "../types"

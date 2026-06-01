@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Glass from "../ui/Glass";
 import type{SubscribedChannel} from '../../types'
 import Avatar from "../ui/Avatar";

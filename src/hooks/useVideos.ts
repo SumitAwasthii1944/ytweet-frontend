@@ -1,5 +1,4 @@
 import { useCallback } from "react"
-import {clearCurrentVideo, clearError} from "../features/videoSlice";
 import {
           getVideos,
           fetchVideoById,

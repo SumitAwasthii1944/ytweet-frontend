@@ -2,7 +2,6 @@ import TweetList from "../components/tweet/TweetList"
 import Button from "../components/ui/Button"
 import Glass from "../components/ui/Glass"
 import { useAuth } from "../hooks/useAuth"
-import { Link } from "react-router-dom"
 import { useState } from "react"
 import CreateTweetModal from "../components/tweet/createTweetModal"
 
