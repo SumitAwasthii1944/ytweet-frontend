@@ -8,11 +8,10 @@ const Sidebar = () => {
 
     const navItems = [
         { to: "/", icon: "", label: "Home" },
-        { to: "/tweets", icon: "💬", label: "Tweets" },
+        { to: "/tweets", icon: "", label: "Tweets" },
         { to:"/dashboard",label:"Dashboard"},
         { to:"/subscriptions", label:"Subscriptions"},
         { to:"/playlists", label:"Playlists"},
-        // add more items here later
     ]
 
     const SidebarContent = () => (
@@ -51,7 +50,7 @@ const Sidebar = () => {
                 {isOpen ? <X size={18}/> : <Menu size={18} />}
             </button>
 
-            {/* ── Mobile overlay ── */}
+            {/*Mobile overlay*/}
             {isOpen && (
                 <div
                     className="lg:hidden fixed inset-0 z-30 bg-black/50 backdrop-blur-sm"
@@ -59,7 +58,7 @@ const Sidebar = () => {
                 />
             )}
 
-            {/* ── Mobile sidebar ── */}
+            {/*Mobile sidebar*/}
             <aside
                 className={`
                     lg:hidden fixed top-0 left-0 h-full z-40 w-64 pt-20
@@ -80,20 +79,20 @@ const Sidebar = () => {
                 </Glass>
             </aside>
 
-            {/* ── Desktop sidebar — always visible ── */}
-            <aside className="hidden lg:block w-48 lg:w-64 fixed top-20 shrink-0">
+            {/*Desktop sidebar — always visible*/}
+            <aside className="hidden lg:block w-48 lg:w-64 fixed top-22 shrink-0 ">
                 <div className="sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
 
                     {/* outer glass */}
                     <Glass
-                        rounded="rounded-none"
+                        rounded="rounded-xl"
                         padding="p-3"
                         className="h-full border-r border-white/10"
                     >
                         {/* inner glass — nav items sit inside this */}
-                        <Glass padding="p-2" className="border border-white/10">
+                        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
                             <SidebarContent />
-                        </Glass>
+                        </div>
                     </Glass>
 
                 </div>

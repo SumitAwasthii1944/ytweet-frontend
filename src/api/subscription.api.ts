@@ -22,7 +22,7 @@ export const getUserChannelSubscribers = async (channelId:string) => {
 
 export const getSubscribedChannels = async (subscriberId:string) => {
           const res = await axiosInstance.get<ApiResponse<SubscribedChannel[]>>(
-                    `/subscriptions/c/${subscriberId}`
+                    `/subscriptions/u/${subscriberId}`
           )
           return res.data
 }

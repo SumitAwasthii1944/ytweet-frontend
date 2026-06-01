@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk,type PayloadAction } from "@reduxjs/toolkit"
 import { loginUser, logoutUser, getCurrentUser } from "../api/user.api"
+import { googleAuth } from "../api/user.api"
 import type { User, LoginInput } from "../types"
 
 interface AuthState{
@@ -60,6 +61,18 @@ export const fetchCurrentUser = createAsyncThunk(
           }
 )
 
+export const googleLogin = createAsyncThunk(
+    "users/google-login",
+    async (idToken: string, { rejectWithValue }) => {
+        try {
+            const res = await googleAuth(idToken)
+            return res.data
+        } catch (err: any) {
+            return rejectWithValue(err.response?.data?.message || "Google login failed")
+        }
+    }
+)
+
 //create slice
 
 const authSlice = createSlice({
@@ -94,6 +107,25 @@ const authSlice = createSlice({
                               state.loading=false
                               state.error=action.payload as string
                     })    
+
+                    // google login
+                    // The googleLogin thunk re-uses the existing auth response shape
+                    // so reducers can handle it exactly like regular `login`.
+                    builder.addCase(googleLogin.pending,(state) => {
+                              state.loading=true
+                              state.error=null
+                    })
+                    builder.addCase(googleLogin.fulfilled,(state,action) => {
+                              state.loading=false
+                              // payload contains { user, accessToken, refreshToken }
+                              state.user=action.payload.user
+                              state.isLoggedIn = true
+                              state.error=null
+                    })
+                    builder.addCase(googleLogin.rejected,(state,action) => {
+                              state.loading=false
+                              state.error=action.payload as string
+                    })
 
                     //logout
                     builder.addCase(logout.pending,(state) => {

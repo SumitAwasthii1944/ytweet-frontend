@@ -2,10 +2,11 @@ import Glass from "../components/ui/Glass"
 import { useVideos } from "../hooks/useVideos"
 import { useState, useEffect } from "react"
 import VideoGrid from "../components/video/VideoGrid"
+import {useAuth} from "../hooks/useAuth"
 function Home() {
     const { videos, fetchVideos } = useVideos()
     const [loading, setLoading] = useState(true)
-
+    const {isLoggedIn}=useAuth()
     useEffect(() => {
         const loadVideos = async () => {
             setLoading(true)
@@ -21,12 +22,19 @@ function Home() {
             <div className="flex flex-col gap-6">
                 <section className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
                     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                        <div>
-                            <h1 className="text-3xl font-semibold text-white">Welcome back</h1>
-                            <p className="mt-3 max-w-2xl text-sm text-slate-400">
-                                Explore the latest videos, discover trending uploads...
-                            </p>
-                        </div>
+                        {isLoggedIn ? 
+                            <div>
+                                <h1 className="text-3xl font-semibold text-white">Welcome back</h1>
+                                <p className="mt-3 max-w-2xl text-sm text-slate-400">
+                                    Explore the latest videos, discover trending uploads...
+                                </p>
+                            </div>
+                        :
+                            <div>
+                                <h2 className="text-3xl font-semibold text-white">Login to Watch, Share, and Connect...</h2>
+                            </div>
+                        }
+                        
                     </div>
                 </section>
 

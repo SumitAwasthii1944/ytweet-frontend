@@ -20,3 +20,31 @@ body {
   background: linear-gradient(135deg, #292931 0%, #2d2d3a 35%, #2a2040 65%, #1e1e24 100%);
   min-height: 100vh;
 }
+.counter-slot {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  height: 22px;
+  vertical-align: top;
+}
+.digit-track {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.digit { height: 22px; line-height: 22px; font-size: 14px; font-weight: 500; }
+
+.sub-btn { border-radius: 20px; padding: 8px 18px; font-size: 14px; font-weight: 500; border: none; cursor: pointer; transition: background 0.3s, transform 0.15s; }
+.sub-btn:active { transform: scale(0.96); }
+.sub-btn.subbed { background: #e8e8e8; color: #111; }
+.sub-btn.unsubbed { background: #e22; color: #fff; }
+
+.bell { display: inline-block; margin-left: 4px; transition: opacity 0.3s, transform 0.3s; }
+.bell.hidden { opacity: 0; transform: scale(0) rotate(-30deg); }
+.bell.visible { opacity: 1; transform: scale(1) rotate(0deg); }
+.bell.ring { animation: ring 0.5s ease; }
+@keyframes ring {
+  0%{transform:rotate(0)} 20%{transform:rotate(20deg)}
+  40%{transform:rotate(-18deg)} 60%{transform:rotate(12deg)}
+  80%{transform:rotate(-8deg)} 100%{transform:rotate(0)}
+}

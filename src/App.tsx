@@ -15,6 +15,7 @@ const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Playlists = lazy(() => import('./pages/Playlists'))
 const PlaylistDetail = lazy(() => import('./pages/PlaylistDetail'))
 const SubcribedChannels = lazy(() => import('./pages/Subscriptions'))
+const EditProfile = lazy(() => import('./pages/EditProfile'))
 
 const AppInit = () => {
     const { loadCurrentUser } = useAuth()
@@ -46,6 +47,7 @@ const Router = createBrowserRouter(
                 <Route path="profile/:username" element={<Profile />} />
                 <Route path='tweets' element={<Tweets />} />
                 <Route path="search" element={<Search />} />
+                <Route path="/edit-profile" element={<EditProfile />} />
                 <Route path="/playlists" element={<Playlists />} />
                 <Route path="/playlist/:playlistId" element={<PlaylistDetail />} />
                 <Route path="/subscriptions" element={<SubcribedChannels />} />

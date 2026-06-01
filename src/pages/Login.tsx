@@ -12,6 +12,8 @@ import type { LoginInput } from '../types'
 import Button from '../components/ui/Button'
 import Spinner from '../components/ui/Spinner'
 import { login } from "../features/authSlice"
+import { GoogleLogin } from '@react-oauth/google'
+import { googleLogin } from '../features/authSlice'
 
 function Login() {
     const navigate = useNavigate()
@@ -25,6 +27,19 @@ function Login() {
             password: data.password
         }))
         if (login.fulfilled.match(result)) {
+            dispatch(showToast({ message: "Logged in successfully", type: "success" }))
+            navigate("/")
+        }
+    }
+
+    // Handler called after Google's client-side sign-in succeeds.
+    // `res.credential` contains the ID token (JWT) that we forward to our backend.
+    // The backend verifies the token and returns the same auth response as regular login.
+    const handleGoogleSuccess = async (res: any) => {
+        const idToken = res?.credential// The Google OAuth library returns the ID token in the `credential` field. This token proves the user's identity and is what we send to our backend for verification.
+        if (!idToken) return
+        const result = await dispatch(googleLogin(idToken))
+        if (googleLogin.fulfilled.match(result)) {
             dispatch(showToast({ message: "Logged in successfully", type: "success" }))
             navigate("/")
         }
@@ -90,6 +105,12 @@ function Login() {
                             </Button>
 
                         </form>
+                        <div className="mt-4 flex justify-center">
+                            {/* GoogleLogin renders the "Sign in with Google" button. When the user
+                                completes sign-in the library returns an ID token (credential) which
+                                we send to our backend via the `googleLogin` thunk. */}
+                            <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => dispatch(showToast({ message: 'Google sign-in failed', type: 'error' }))} />
+                        </div>
                     </div>
                 </Glass>
             </div>

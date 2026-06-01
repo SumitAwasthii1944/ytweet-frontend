@@ -71,15 +71,6 @@ const VideoAction = ({ video }: VideoActionProps) => {
           <span>🔗</span>
           <span>Share</span>
         </button>
-
-        {/* Comment Button (if you want to add comments later) */}
-        <Link
-          to={`/watch/${video._id}#comments`}
-          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-slate-900/70 text-slate-200 border border-white/10 hover:bg-slate-800/70 transition-colors"
-        >
-          <span>💬</span>
-          <span>Comments</span>
-        </Link>
       </div>
 
       {/* Add to Playlist Modal */}

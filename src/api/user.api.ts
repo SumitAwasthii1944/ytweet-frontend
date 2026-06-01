@@ -36,6 +36,16 @@ export const loginUser = async (data:LoginInput) => {
     return res.data
 }
 
+export const googleAuth = async (idToken: string) => {
+    // Sends the ID token obtained from Google's client-side sign-in to the backend
+    // which verifies it and returns the same auth response used by standard login.
+    const res = await axiosInstance.post<ApiResponse<AuthResponse>>( 
+        "/users/google",
+        { idToken }
+    )
+    return res.data
+}
+
 export const logoutUser = async () =>{
     const res = await axiosInstance.post<ApiResponse<{}>>(
         "/users/logout"

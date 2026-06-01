@@ -11,6 +11,8 @@ import Spinner from "../components/ui/Spinner";
 import { registerUser } from "../api/user.api";
 import { showToast } from "../features/uiSlice";
 import useAppDispatch from "../hooks/useAppDispatch";
+import { GoogleLogin } from '@react-oauth/google'
+import { googleLogin } from '../features/authSlice'
 
 import type { RegisterInput } from "../types";
 
@@ -43,6 +45,17 @@ function Register() {
       setLoading(false);
     }
   };
+  // When user signs in with Google on the register page we treat it as a login.
+  // The client obtains an ID token which we forward to the backend for verification.
+  const handleGoogleSuccess = async (res: any) => {
+    const idToken = res?.credential
+    if (!idToken) return
+    const result = await dispatch(googleLogin(idToken))
+    if (googleLogin.fulfilled.match(result)) {
+      dispatch(showToast({ type: 'success', message: 'Logged in successfully' }))
+      navigate('/')
+    }
+  }
 
   return (
   <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -115,6 +128,11 @@ function Register() {
           </Button>
 
         </form>
+        <div className="mt-4 flex justify-center">
+          {/* Re-using GoogleLogin on the register page so users can sign up or log in
+              using Google. The backend will create a user if one doesn't exist. */}
+          <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => dispatch(showToast({ type: 'error', message: 'Google sign-in failed' }))} />
+        </div>
       </div>
     </Glass>
     </div>

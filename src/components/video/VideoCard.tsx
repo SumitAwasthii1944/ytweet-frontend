@@ -8,10 +8,12 @@ import { useState } from "react"
 import useAppDispatch from "../../hooks/useAppDispatch"
 import { showToast } from "../../features/uiSlice"
 
+
 interface VideoCardProps {
   video: Video
   onDelete?: (id: string) => void 
   onEdit?: (id:string) => void
+  onPublish?: (id:string) => void
 }
 
 const VideoCard = ({ video, onDelete }: VideoCardProps) => {
@@ -40,9 +42,15 @@ const VideoCard = ({ video, onDelete }: VideoCardProps) => {
     year: "numeric"
   })
 
-  const handlePublish = () => {
-    setPublish(!publish)
-    toggleVideoPublish(video._id)
+  const handlePublish = async () => {
+    try {
+      await toggleVideoPublish(video._id)
+      setPublish(!publish)
+    } catch(err) {
+      console.log(err);
+      
+    } 
+    
   }
 
   const handleDelete = async () => {
@@ -85,7 +93,7 @@ const VideoCard = ({ video, onDelete }: VideoCardProps) => {
               {/* Toggle switch */}
               <button
                   type="button"
-                  onClick={() => setPublish(prev => !prev)}
+                  onClick={handlePublish}
                   className={`relative md:w-11 w-8 h-4 md:h-6 rounded-full transition-colors duration-300
                       ${publish ? "bg-violet-500" : "bg-zinc-600"}`}
               >

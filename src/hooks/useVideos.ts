@@ -7,7 +7,8 @@ import {
           editVideo,
           removeVideo,
           togglePublish,
-          incrementVideoViews
+          incrementVideoViews,
+          clearVideos
 } from '../features/videoSlice'
 
 import type {
@@ -25,6 +26,10 @@ export const useVideos = () => {
           const fetchVideos = useCallback((params:VideoQueryParams) => {
                     return dispatch(getVideos(params))
           }, [dispatch])
+
+          const removeVideos = useCallback(() => {
+                    dispatch(clearVideos())
+          },[dispatch])
 
           const getVideoById = useCallback((videoId:string) => {
                     return dispatch(fetchVideoById(videoId))
@@ -63,6 +68,7 @@ export const useVideos = () => {
                     deleteVideo,
                     publishAVideo,
                     toggleVideoPublish,
-                    incrementViews
+                    incrementViews,
+                    removeVideos
           }
 }

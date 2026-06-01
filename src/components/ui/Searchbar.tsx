@@ -11,6 +11,7 @@ function SearchBar() {
     if (!query.trim()) return
 
     navigate(`/search?q=${query}`)
+    setQuery("")
   }
 
   return (
